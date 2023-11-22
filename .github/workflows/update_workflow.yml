@@ -1,0 +1,27 @@
+name: Update Firewall Rules
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight
+
+jobs:
+  update-firewall:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run the update script
+        run: python ./scripts/update_firewall.py
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          FIREWALL_RULE_NAME: ${{ secrets.FIREWALL_RULE_NAME }}
