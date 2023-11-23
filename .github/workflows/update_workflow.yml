@@ -24,9 +24,9 @@ jobs:
 
       - name: Create GCP Credentials File
         run: |
-          echo "${{ secrets.GCP_SA_KEY }}" > gcp-key.json
+          echo '${{ secrets.GCP_SA_KEY_BASE64 }}' | base64 --decode > gcp-key.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/gcp-key.json" >> $GITHUB_ENV
-
+      
       - name: Run the update script
         run: python ./scripts/update_firewall.py
         env:
