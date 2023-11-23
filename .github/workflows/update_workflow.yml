@@ -22,14 +22,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Set up GCP Credentials
-        run: |
-          echo -e '${{ secrets.GCP_SA_KEY }}' > gcp-key.json
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/gcp-key.json" >> $GITHUB_ENV
-
       - name: Run the update script
         run: python ./scripts/update_firewall.py
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
           GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           FIREWALL_RULE_NAME: ${{ secrets.FIREWALL_RULE_NAME }}
