@@ -8,6 +8,7 @@ import ipaddress
 GITHUB_META_API_URL = "https://api.github.com/meta"
 GCP_PROJECT_ID = os.getenv('GCP_PROJECT_ID')
 FIREWALL_RULE_NAME = os.getenv('FIREWALL_RULE_NAME')
+GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 KEYS_TO_EXTRACT = ["actions", "hooks"]
 
 def is_ipv4(ip_range):
